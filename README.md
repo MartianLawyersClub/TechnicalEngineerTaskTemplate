@@ -3,6 +3,7 @@
 ## Requirements
 - Python 3
 - Pip
+- ~5GB of free storage for models + packages.
 
 ## Installation
 - Create a virtual enviornment (recommended name is `venv` so that it is git ignored by default)
