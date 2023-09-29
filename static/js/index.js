@@ -34,11 +34,11 @@ $(function() {
 });
 
 function update_description(value, title_element) {
-    title_element.parent().parent().find(".item-description").text("Loading...");
+    title_element.parent().parent().find(".item-description").val("Loading...");
     $.getJSON($SCRIPT_ROOT + '/get_description', {item: value}, 
         function(data) {
             description = data.result
-            title_element.parent().parent().find(".item-description").text(description);
+            title_element.parent().parent().find(".item-description").val(description);
         }
     );
 }

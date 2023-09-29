@@ -1,4 +1,12 @@
-# TechnicalEngineerTaskTemplate
+# MLC Technical Engineer (Cloud) Task
+
+<p align="center">
+  <img width="30%" src="LogoGreen_New.png"/>
+</p>
+
+NOTE: If you have been assigned this task, _do not_ publicly fork this repo. Instead, follow the instructions in the task doc you have been provided.
+
+This is the repo for the MLC Technical Engineer (Cloud) Task, which involves building out the back-end of a web game with procedural content utilising an LLM. The task includes making the generative pipeline more varied and robust, designing and implementing clear and exhaustive tests for the generative pipeline, and documenting the implementation process and findings.
 
 ## Requirements
 - Python 3

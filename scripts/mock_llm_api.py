@@ -2,7 +2,7 @@ from gpt4all import GPT4All, Embed4All
 
 class LLMAPI:
     def __init__(self):
-        self.model = model = GPT4All("ggml-model-gpt4all-falcon-q4_0.bin")
+        self.model = GPT4All("ggml-model-gpt4all-falcon-q4_0.bin")
         self.embedder = Embed4All()
 
     def completion_request(self, prompt, max_tokens):
