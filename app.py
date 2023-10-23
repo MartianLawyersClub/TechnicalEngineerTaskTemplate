@@ -8,16 +8,17 @@ db = lancedb.connect(uri)
 
 # Set initial entries in items vector database
 def _reset_tables():
-    items = [item for item in ['Fire', 'Earth', 'Water', 'Wind']]
+    items = ['Fire', 'Earth', 'Water', 'Wind']
     descriptions = ["Strength: 10\nCost: 300\nCategory: Element", 
                     "Strength: 7\nCost: 100\nCategory: Element",
                     "Strength: 3\nCost: 50\nCategory: Element",
                     "Strength: 1\nCost: 10\nCategory: Element"
     ]
-    vectors = [llm_api.embedding_request(item) for item in ['Fire', 'Earth', 'Water', 'Wind']]
+    vectors = [llm_api.embedding_request(item) for item in items]
 
     df = pd.DataFrame({"item": items, "vector": vectors, "description": descriptions})
     db.create_table("items", mode="overwrite", data=df)
+
 
 if not db.table_names():
     print("No DB set up, creating initial tables")
@@ -37,17 +38,20 @@ def generate():
     item_2 = request.args.get('item_2', type=str)
     
     # Generate prompt embedding
-    embedding_prompt_template = open("prompt_templates/basic_embedding_prompt.txt").read().strip()
+    with open("prompt_templates/basic_embedding_prompt.txt") as embedding_prompt_file:
+        embedding_prompt_template = embedding_prompt_file.read().strip()
     embeddding_prompt = embedding_prompt_template.format(item_1=item_1, item_2=item_2)
     prompt_embedding = llm_api.embedding_request(embeddding_prompt)
 
     # Generate combination
-    prompt_template = open("prompt_templates/basic_prompt.txt").read().strip()
+    with open("prompt_templates/basic_prompt.txt") as prompt_file:
+        prompt_template = prompt_file.read().strip()
     prompt = prompt_template.format(item_1=item_1, item_2=item_2)
     combination = llm_api.completion_request(prompt, max_tokens=30)
 
     # Generate description for combination
-    prompt_template = open("prompt_templates/basic_description_prompt.txt").read().strip()
+    with open("prompt_templates/basic_description_prompt.txt") as description_prompt_file:
+        prompt_template = description_prompt_file.read().strip()
     prompt = prompt_template.format(item=combination)
     description = llm_api.completion_request(prompt, max_tokens=100)
 
